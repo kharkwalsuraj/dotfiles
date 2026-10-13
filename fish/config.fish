@@ -5,7 +5,7 @@ if status is-interactive
 
     if test "$TERM" != "linux"
         starship init fish | source
-        zoxide init fish | source
+        # zoxide init fish | source
         enable_transience
     end
 

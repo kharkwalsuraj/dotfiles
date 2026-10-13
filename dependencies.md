@@ -1,85 +1,78 @@
 # Dependencies
-Packages, themes, fonts, and services used in my **Arch Linux** Niri setup.
-Use this file as a reference for your Linux distribution and package manager.
+Packages, themes, fonts, and services used in my **Arch Linux Niri setup**. Use this list as a reference for your distribution and package manager.
 
 ## Core System
 - `niri` — Wayland compositor.
-- `xwayland-satellite` — X11 application support.
-- `wl-clipboard` — Wayland clipboard tools.
-- `brightnessctl` — Brightness control.
-- `playerctl` — Media player controls.
-- `swayidle` — Idle management for Wayland.
+- `xwayland-satellite` — X11 application compatibility.
+- `wl-clipboard` — Wayland clipboard utilities.
+- `brightnessctl` — Screen brightness control.
+- `playerctl` — Media playback control.
+- `swayidle` — Idle and timeout management.
 - `wlsunset` — Night light and color temperature adjustment.
-- `awww` — Wallpaper daemon and transition effects.
+- `awww` — Wallpaper management.
 
 ## Desktop Integration
-- `xdg-utils` — File opening, MIME associations, and default application management.
-- `xdg-desktop-portal` — Desktop integration for applications.
-- `xdg-desktop-portal-gtk` — GTK portal backend.
-- `xdg-desktop-portal-gnome` — GNOME portal backend, including screencast support.
-- `polkit-gnome` — Graphical authentication for privileged actions.
+- `xdg-utils` — Default applications and file associations.
+- `xdg-desktop-portal` — Desktop portal interface for applications.
+- `xdg-desktop-portal-gtk` — Provides basic desktop portal functionality.
+- `xdg-desktop-portal-gnome` — Provides screencasting and Nautilus file picker integration.
+- `polkit-gnome` — Graphical authentication prompts.
 - `nautilus` — GNOME file manager.
 - `tuned` — System performance tuning and power profiles.
 
 ## Theming and Appearance
-- `matugen-git` — Generates colors from wallpapers.
-- `python-materialyoucolor3` — Converts Matugen colors to terminal ANSI colors.
+- `matugen-git` — Generates color schemes from wallpapers.
+- `python-materialyoucolor3` — Converts Matugen colors into terminal ANSI colors.
 - `darkly-bin` — Qt application theme.
 - `adw-gtk-theme` — GTK application theme.
 - [Colloid icon theme](https://github.com/vinceliuice/Colloid-icon-theme) — Application icons.
-- `bibata-cursor-theme-bin` — Cursor theme.
+- `bibata-cursor-theme-bin` — Mouse cursor theme.
 
 ## Fonts
-- `noto-fonts` — General text fonts.
+- `noto-fonts` — General text font coverage.
 - `noto-fonts-cjk` — Chinese, Japanese, and Korean fonts.
-- `noto-fonts-emoji` — Emoji fonts.
-- `ttf-ibm-plex` — IBM Plex fonts.
+- `noto-fonts-emoji` — Emoji support.
+- `ttf-ibm-plex` — IBM Plex font family.
 - `ttf-google-sans-flex-variable` — Google Sans Flex font.
 - `ttf-nerd-fonts-symbols-mono` — Terminal and prompt symbols.
 
-## Terminal and Cli tools
+## Terminal and CLI Tools
 - `kitty` — Terminal emulator.
-- `fish` — Shell.
-- `starship` — Shell prompt.
+- `fish` — Interactive shell.
+- `starship` — Customizable shell prompt.
 - `neovim` — Text editor.
-- `yazi` — Terminal file manager.
-- `fzf` — Fuzzy finder.
-- `zoxide` — Directory navigation.
-- `jq` — JSON processing.
-- `ripgrep` — Fast text search.
-- `fd` — Fast file search.
-- `unzip` — ZIP extraction.
-- `7zip` — Archive support.
-- `imagemagick` — Image processing.
-- `icoutils` — Icon file support.
-- `libappimage` — AppImage support.
-- `ffmpeg` — Media processing and format support.
-- `resvg` — SVG rendering.
-- `taglib` — Audio metadata support.
-- `poppler` — PDF rendering and support.
+- `fzf` — Fuzzy finder used for Kitty tab switching.
+- `unzip` — Extracts ZIP archives.
+- `imagemagick` — Image processing and backdrop blur generation.
+
+<details>
+<summary>Optional Dependencies</summary>
 
 ## Images, Video, and Media
-- `loupe` — GNOME image viewer.
-- `showtime` — GNOME video player.
-- `gst-plugins-base` — Basic GStreamer playback support.
-- `gst-plugins-good` — Common media formats.
-- `gst-plugins-bad` — Additional codecs and media features.
-- `gst-plugins-ugly` — Additional codecs.
-- `gst-libav` — FFmpeg-based media format support.
+- `loupe` — Image viewer.
+- `showtime` — Video player.
+- `gst-plugins-base` — Required by Showtime for basic media playback.
+- `gst-plugins-good` — Provides common media formats for Showtime.
+- `gst-plugins-bad` — Provides additional media formats and features for Showtime.
+- `gst-plugins-ugly` — Provides additional codecs for Showtime.
+- `gst-libav` — Provides FFmpeg-based codec support for Showtime.
 
 ## Audio, Networking, and Bluetooth
 - `pipewire` — Audio and multimedia server.
-- `pipewire-pulse` — PulseAudio compatibility.
-- `wireplumber` — PipeWire session manager.
-- `networkmanager` — Network management.
+- `pipewire-pulse` — PulseAudio compatibility layer for PipeWire.
+- `wireplumber` — PipeWire session and device manager.
+- `networkmanager` — Network connection management.
 - `bluez` — Bluetooth protocol stack.
-- `bluez-utils` — Bluetooth command-line tools.
-
+- `bluez-utils` — Bluetooth command-line utilities.
 
 ## Services and Setup
-Enable the services you use.
+
+Enable only the services you need.
+
 - **PipeWire:** Enable `pipewire`, `pipewire-pulse`, and `wireplumber` as user services.
 - **NetworkManager:** Enable the `NetworkManager` system service.
 - **Bluetooth:** Enable the `bluetooth` system service if needed.
-- **Tuned:** Use `tuned-adm list` to view profiles, `tuned-adm active` to check the active profile, and `sudo tuned-adm profile <profile>` to select one. Use `throughput-performance` for performance-focused workloads.
-Refresh the font cache if needed: `fc-cache -fv`
+- **Tuned:** Use `tuned-adm list` to list profiles, `tuned-adm active` to check the active profile, and `sudo tuned-adm profile <profile>` to select one. Use `throughput-performance` for performance-focused workloads.
+- **Font cache:** Refresh installed fonts with `fc-cache -fv` if needed.
+
+</details>
