@@ -5,7 +5,6 @@ if status is-interactive
 
     if test "$TERM" != "linux"
         starship init fish | source
-        # zoxide init fish | source
         enable_transience
     end
 
@@ -29,8 +28,5 @@ if status is-interactive
         nvim "$path"
     end
 
-    # Aliases
-    alias yy "yazi"
-    alias nv "nvim"
     alias clear "printf '\\033[2J\\033[3J\\033[1;1H'"
 end
