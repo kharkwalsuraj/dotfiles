@@ -76,14 +76,12 @@ fi
 gsettings set org.gnome.desktop.interface gtk-theme ""
 
 if [ "{{ mode }}" = "light" ]; then
-    gtk_theme="$gtk_light_theme"
-    gsettings set org.gnome.desktop.interface icon-theme 'Colloid'
+    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme_light"
+    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon_theme_light"
 else
-    gtk_theme="$gtk_dark_theme"
-    gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
+    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme_dark"
+    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon_theme_dark"
 fi
-
-gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
 '''
 
 
@@ -120,38 +118,37 @@ gsettings set org.gnome.desktop.interface color-scheme "$target"
 input_path = '~/.config/matugen/templates/qt/Matugen.colors'
 output_path = '~/.local/share/color-schemes/Matugen.colors'
 post_hook = '''
-settings=~/.config/matugen/settings.conf
-source "$settings"
+settings="$HOME/.config/matugen/settings.conf"
+[ -f "$settings" ] || exit 0
+. "$settings"
 
-if [ "$use_qt_theme" != true ]; then
-    exit 0
-fi
+[ "$enable_qt_theming" = true ] || exit 0
 
-cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
+cp "$HOME/.local/share/color-schemes/Matugen.colors" \
+   "$HOME/.local/share/color-schemes/Matugen2.colors"
 
 plasma-apply-desktoptheme darkly
 plasma-apply-colorscheme Matugen2
 plasma-apply-colorscheme Matugen
 
 if [ "{{ mode }}" = "light" ]; then
-    icon_theme="$light_icon_pack"
+    kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_light"
     vlc_dark=0
 else
-    icon_theme="$dark_icon_pack"
+    kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_dark"
     vlc_dark=1
 fi
 
-kwriteconfig6 --file kdeglobals --group Icons --key Theme "$icon_theme"
 kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
 kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
 
-mkdir -p ~/.config/vlc
-vlcrc=~/.config/vlc/vlcrc
-touch "$vlcrc"
-
-if grep -qE '^#*qt-dark-palette=' "$vlcrc"; then
-    sed -i "s/^#*qt-dark-palette=.*/qt-dark-palette=$vlc_dark/" "$vlcrc"
-else
-    printf '\nqt-dark-palette=%s\n' "$vlc_dark" >> "$vlcrc"
-fi
+# mkdir -p "$HOME/.config/vlc"
+# vlcrc="$HOME/.config/vlc/vlcrc"
+# touch "$vlcrc"
+#
+# if grep -qE '^#*qt-dark-palette=' "$vlcrc"; then
+#     sed -i "s/^#*qt-dark-palette=.*/qt-dark-palette=$vlc_dark/" "$vlcrc"
+# else
+#     printf '\\nqt-dark-palette=%s\\n' "$vlc_dark" >> "$vlcrc"
+# fi
 '''
