@@ -4,7 +4,7 @@ spawn-at-startup "systemctl" "--user" "restart" "xdg-desktop-portal"
 spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,ssh"
 
 // Idle / authentication
-spawn-at-startup "phylax"
+spawn-at-startup "/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
 spawn-sh-at-startup "swayidle -w timeout 270 'brightnessctl set 10%-' resume 'brightnessctl set 10%+' timeout 300 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' timeout 600 'systemctl suspend'"
 spawn-at-startup "wlsunset" "-S" "07:00" "-s" "19:00" "-d" "1800"
 

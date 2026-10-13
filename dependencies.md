@@ -16,7 +16,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `xdg-desktop-portal` — Desktop portal interface for applications.
 - `xdg-desktop-portal-gtk` — Provides basic desktop portal functionality.
 - `xdg-desktop-portal-gnome` — Provides screencasting and Nautilus file picker integration.
-- `phylax-git` — Graphical authentication prompts.
+- `pantheon-polkit-agent` — Graphical authentication prompts.
 - `nautilus` — GNOME file manager.
 - `tuned` — System performance tuning and power profiles.
 
