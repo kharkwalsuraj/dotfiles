@@ -118,14 +118,13 @@ gsettings set org.gnome.desktop.interface color-scheme "$target"
 input_path = '~/.config/matugen/templates/qt/Matugen.colors'
 output_path = '~/.local/share/color-schemes/Matugen.colors'
 post_hook = '''
-settings="$HOME/.config/matugen/settings.conf"
+settings="~/.config/matugen/settings.conf
 [ -f "$settings" ] || exit 0
 . "$settings"
 
 [ "$enable_qt_theming" = true ] || exit 0
 
-cp "$HOME/.local/share/color-schemes/Matugen.colors" \
-   "$HOME/.local/share/color-schemes/Matugen2.colors"
+cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
 
 plasma-apply-desktoptheme darkly
 plasma-apply-colorscheme Matugen2
