@@ -45,9 +45,6 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `unzip` — Extracts ZIP archives.
 - `imagemagick` — Image processing and backdrop blur generation.
 
-<details>
-<summary>Optional Dependencies</summary>
-
 ## Images, Video, and Media
 - `loupe` — Image viewer.
 - `showtime` — Video player.
@@ -74,5 +71,3 @@ Enable only the services you need.
 - **Bluetooth:** Enable the `bluetooth` system service if needed.
 - **Tuned:** Use `tuned-adm list` to list profiles, `tuned-adm active` to check the active profile, and `sudo tuned-adm profile <profile>` to select one. Use `throughput-performance` for performance-focused workloads.
 - **Font cache:** Refresh installed fonts with `fc-cache -fv` if needed.
-
-</details>
