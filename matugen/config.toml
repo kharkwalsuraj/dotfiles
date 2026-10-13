@@ -49,11 +49,11 @@ post_hook = '''
 settings=~/.config/matugen/settings.conf
 source "$settings"
 
-python3 ~/.config/quickshell/zoya/matugen/extend/ansi.py --path "{{ image }}" --blend_bg_fg --mode "{{ mode }}" --scheme "{{ scheme }}"
+python3 ~/.config/matugen/extend/ansi.py --path "{{ image }}" --blend_bg_fg --mode "{{ mode }}" --scheme "{{ scheme }}"
 
-python3 ~/.config/quickshell/zoya/matugen/extend/scripts/nvim.py --mode "{{ mode }}" &
-python3 ~/.config/quickshell/zoya/matugen/extend/scripts/kitty.py &
-python3 ~/.config/quickshell/zoya/matugen/extend/scripts/fzf.py &
+python3 ~/.config/matugen/extend/scripts/nvim.py --mode "{{ mode }}" &
+python3 ~/.config/matugen/extend/scripts/kitty.py &
+python3 ~/.config/matugen/extend/scripts/fzf.py &
 '''
 
 
@@ -63,7 +63,7 @@ output_path = '~/.config/niri/modules/colors.kdl'
 post_hook = 'niri msg action load-config-file'
 
 [templates.gtk3]
-input_path = '~/.config/quickshell/zoya/matugen/templates/gtk-3.0/gtk.css'
+input_path = '~/.config/matugen/templates/gtk-3.0/gtk.css'
 output_path = '~/.config/gtk-3.0/gtk.css'
 post_hook = '''
 settings=~/.config/matugen/settings.conf

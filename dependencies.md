@@ -1,5 +1,5 @@
 # Dependencies
-Packages, themes, fonts, and services used in my **Arch Linux Niri setup**. Use this list as a reference for your distribution and package manager.
+Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this list as a reference for your distribution and package manager.
 
 ## Core System
 - `niri` — Wayland compositor.
@@ -16,7 +16,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Niri setup**. Use 
 - `xdg-desktop-portal` — Desktop portal interface for applications.
 - `xdg-desktop-portal-gtk` — Provides basic desktop portal functionality.
 - `xdg-desktop-portal-gnome` — Provides screencasting and Nautilus file picker integration.
-- `polkit-gnome` — Graphical authentication prompts.
+- `pantheon-polkit-agent` — Graphical authentication prompts.
 - `nautilus` — GNOME file manager.
 - `tuned` — System performance tuning and power profiles.
 
