@@ -1,6 +1,7 @@
 # Dependencies
 Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this list as a reference for your distribution and package manager.
 
+
 ## Core System
 - `niri` — Wayland compositor.
 - `xwayland-satellite` — X11 application compatibility.
@@ -11,6 +12,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `wlsunset` — Night light and color temperature adjustment.
 - `awww` — Wallpaper management.
 
+
 ## Desktop Integration
 - `xdg-utils` — Default applications and file associations.
 - `xdg-desktop-portal` — Desktop portal interface for applications.
@@ -20,13 +22,14 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `nautilus` — GNOME file manager.
 - `tuned` — System performance tuning and power profiles.
 
+
 ## Theming and Appearance
 - `matugen-git` — Generates color schemes from wallpapers.
 - `python-materialyoucolor3` — Converts Matugen colors into terminal ANSI colors.
-- `darkly-bin` — Qt application theme.
 - `adw-gtk-theme` — GTK application theme.
 - [Colloid icon theme](https://github.com/vinceliuice/Colloid-icon-theme) — Application icons.
 - `bibata-cursor-theme-bin` — Mouse cursor theme.
+
 
 ## Fonts
 - `noto-fonts` — General text font coverage.
@@ -36,14 +39,28 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `ttf-google-sans-flex-variable` — Google Sans Flex font.
 - `ttf-nerd-fonts-symbols-mono` — Terminal and prompt symbols.
 
+
 ## Terminal and CLI Tools
 - `kitty` — Terminal emulator.
 - `fish` — Interactive shell.
 - `starship` — Customizable shell prompt.
 - `neovim` — Text editor.
-- `fzf` — Fuzzy finder used for Kitty tab switching.
 - `unzip` — Extracts ZIP archives.
-- `imagemagick` — Image processing and backdrop blur generation.
+
+
+## Yazi 
+- `yazi` — Tui file manager.
+- `ffmpeg` — Video and media preview support.
+- `7zip` — Archive preview and extraction.
+- `jq` — JSON processing.
+- `poppler` — PDF preview support.
+- `fd` — Fast file searching.
+- `ripgrep` — Fast text searching.
+- `fzf` — Fuzzy finding.
+- `zoxide` — Smart directory navigation.
+- `resvg` — SVG preview support.
+- `imagemagick` — Image processing and preview support.
+
 
 ## Images, Video, and Media
 - `loupe` — Image viewer.
@@ -54,6 +71,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `gst-plugins-ugly` — Provides additional codecs for Showtime.
 - `gst-libav` — Provides FFmpeg-based codec support for Showtime.
 
+
 ## Audio, Networking, and Bluetooth
 - `pipewire` — Audio and multimedia server.
 - `pipewire-pulse` — PulseAudio compatibility layer for PipeWire.
@@ -62,8 +80,8 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `bluez` — Bluetooth protocol stack.
 - `bluez-utils` — Bluetooth command-line utilities.
 
-## Services and Setup
 
+## Services and Setup
 Enable only the services you need.
 
 - **PipeWire:** Enable `pipewire`, `pipewire-pulse`, and `wireplumber` as user services.
