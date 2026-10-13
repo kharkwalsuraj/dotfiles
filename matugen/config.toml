@@ -1,0 +1,157 @@
+[config]
+version_check = false
+prefer = "saturation"
+
+
+[config.wallpaper]
+set = true
+command = '''
+image="{{ image }}"
+cache_dir=~/.cache/backdrop-wallpapers/
+settings=~/.config/matugen/settings.conf
+
+source "$settings"
+mkdir -p "$cache_dir"
+
+# Manage backdrop daemon
+if [ "$backdrop_wallpaper" = "true" ]; then
+    if ! pgrep -f "^awww-daemon --namespace backdrop$" >/dev/null; then
+        awww-daemon --namespace backdrop >/dev/null 2>&1 &
+        sleep 0.2
+    fi
+
+    name="$(basename "$image")"
+    cache="$cache_dir/${name%.*}.webp"
+
+    if [ ! -f "$cache" ]; then
+        magick "$image" -auto-orient -resize "$backdrop_resize" -strip -blur "0x${backdrop_blur_size}" -quality "$backdrop_quality" "$cache"
+    fi
+
+    awww img --transition-type fade --transition-duration 0.5 -n backdrop "$cache" &
+else
+    pkill -f "^awww-daemon --namespace backdrop$" 2>/dev/null || true
+fi
+
+# Manage main wallpaper daemon
+if ! pgrep -f "^awww-daemon$" >/dev/null; then
+    awww-daemon >/dev/null 2>&1 &
+    sleep 0.2
+fi
+
+awww img --transition-type fade --transition-duration 0.5 "$image" &
+'''
+
+
+[templates.m3colors]
+input_path = '~/.config/matugen/templates/m3colors/m3colors.json'
+output_path = '~/.local/state/matugen/m3colors.json'
+post_hook = '''
+settings=~/.config/matugen/settings.conf
+source "$settings"
+
+python3 ~/.config/quickshell/zoya/matugen/extend/ansi.py --path "{{ image }}" --blend_bg_fg --mode "{{ mode }}" --scheme "{{ scheme }}"
+
+python3 ~/.config/quickshell/zoya/matugen/extend/scripts/nvim.py --mode "{{ mode }}" &
+python3 ~/.config/quickshell/zoya/matugen/extend/scripts/kitty.py &
+python3 ~/.config/quickshell/zoya/matugen/extend/scripts/fzf.py &
+'''
+
+
+[templates.niri]
+input_path = '~/.config/matugen/templates/niri/colors.kdl'
+output_path = '~/.config/niri/modules/colors.kdl'
+post_hook = 'niri msg action load-config-file'
+
+[templates.gtk3]
+input_path = '~/.config/quickshell/zoya/matugen/templates/gtk-3.0/gtk.css'
+output_path = '~/.config/gtk-3.0/gtk.css'
+post_hook = '''
+settings=~/.config/matugen/settings.conf
+source "$settings"
+
+if [ "$use_gtk_theme" != true ]; then
+    exit 0
+fi
+
+gsettings set org.gnome.desktop.interface gtk-theme ""
+
+if [ "{{ mode }}" = "light" ]; then
+    gtk_theme="$gtk_light_theme"
+    gsettings set org.gnome.desktop.interface icon-theme 'Colloid'
+else
+    gtk_theme="$gtk_dark_theme"
+    gsettings set org.gnome.desktop.interface icon-theme 'Colloid-Dark'
+fi
+
+gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme"
+'''
+
+
+[templates.gtk4]
+input_path = '~/.config/matugen/templates/gtk-4.0/gtk.css'
+output_path = '~/.config/gtk-4.0/gtk.css'
+post_hook = '''
+settings=~/.config/matugen/settings.conf
+source "$settings"
+
+if [ "$use_gtk_theme" != true ]; then
+    exit 0
+fi
+
+current="$(gsettings get org.gnome.desktop.interface color-scheme | tr -d "'")"
+
+if [ "{{ mode }}" = "dark" ]; then
+    target=prefer-dark
+    opposite=prefer-light
+else
+    target=prefer-light
+    opposite=prefer-dark
+fi
+
+if [ "$current" = "$target" ]; then
+    gsettings set org.gnome.desktop.interface color-scheme "$opposite"
+fi
+
+gsettings set org.gnome.desktop.interface color-scheme "$target"
+'''
+
+
+[templates.qt]
+input_path = '~/.config/matugen/templates/qt/Matugen.colors'
+output_path = '~/.local/share/color-schemes/Matugen.colors'
+post_hook = '''
+settings=~/.config/matugen/settings.conf
+source "$settings"
+
+if [ "$use_qt_theme" != true ]; then
+    exit 0
+fi
+
+cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
+
+plasma-apply-desktoptheme darkly
+plasma-apply-colorscheme Matugen2
+plasma-apply-colorscheme Matugen
+
+if [ "{{ mode }}" = "light" ]; then
+    icon_theme="$light_icon_pack"
+    vlc_dark=0
+else
+    icon_theme="$dark_icon_pack"
+    vlc_dark=1
+fi
+
+kwriteconfig6 --file kdeglobals --group Icons --key Theme "$icon_theme"
+kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
+kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
+
+mkdir -p ~/.config/vlc
+vlcrc=~/.config/vlc/vlcrc
+touch "$vlcrc"
+
+if grep -qE '^#*qt-dark-palette=' "$vlcrc"; then
+    sed -i "s/^#*qt-dark-palette=.*/qt-dark-palette=$vlc_dark/" "$vlcrc"
+else
+    printf '\nqt-dark-palette=%s\n' "$vlc_dark" >> "$vlcrc"
+fi
+'''

@@ -1,0 +1,58 @@
+# Font
+# font_family      JetBrains Mono Nerd Font
+font_family      IBM Plex Mono
+font_size 11.0
+
+# Cursor
+cursor_shape beam
+cursor_trail 1
+
+# Padding 
+window_margin_width 20
+
+# No close confirmation
+confirm_os_window_close 0
+
+# I don't need that
+tab_bar_style hidden
+
+# Use fish shell
+shell fish
+
+# Copy
+map ctrl+c    copy_or_interrupt
+
+# Scrollback
+map ctrl+shift+h show_scrollback
+scrollback_pager nvim --cmd 'set eventignore=FileType' +'nnoremap q ZQ' +'call nvim_open_term(0, {})' +'set nomodified nolist' +'CURSOR_LINE' -
+map ctrl+shift+h show_scrollback
+
+# Scroll & Zoom
+map page_up    scroll_page_up
+map page_down    scroll_page_down
+
+map ctrl+plus  change_font_size all +1
+map ctrl+equal  change_font_size all +1
+map ctrl+kp_add  change_font_size all +1
+map ctrl+minus       change_font_size all -1
+map ctrl+underscore       change_font_size all -1
+map ctrl+kp_subtract       change_font_size all -1
+map ctrl+0 change_font_size all 0
+map ctrl+kp_0 change_font_size all 0
+
+# List tabs using fzf
+map ctrl+shift+e launch --type=overlay --allow-remote-control ~/.config/kitty/switch-tabs
+
+# Previous/Next tab
+map alt+]             next_tab
+map alt+[             previous_tab
+
+map alt+1 goto_tab 1
+map alt+2 goto_tab 2
+map alt+3 goto_tab 3
+map alt+4 goto_tab 4
+map alt+5 goto_tab 5
+map alt+6 goto_tab 6
+map alt+7 goto_tab 7
+map alt+8 goto_tab 8
+map alt+9 goto_tab 9

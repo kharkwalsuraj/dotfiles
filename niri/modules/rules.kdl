@@ -1,0 +1,24 @@
+window-rule { geometry-corner-radius 20; clip-to-geometry true; }
+
+window-rule { match app-id=".*plasmawindowed.*"; open-floating true; }
+window-rule { match app-id="^kcm_.*"; open-floating true; }
+window-rule { match app-id=".*bluedevilwizard.*"; open-floating true; }
+window-rule { match title=".*Shell conflicts.*"; open-floating true; }
+window-rule { match app-id="xdg-desktop-portal-gtk"; open-floating true; default-column-width { proportion 0.60; }; default-window-height { proportion 0.65; }; }
+
+
+window-rule { match title=r#"^[Pp]icture[-\s]?[Ii]n[-\s]?[Pp]icture.*$"#; open-floating true; default-column-width { proportion 0.25; }; default-window-height { proportion 0.25; }; default-floating-position x=32 y=32 relative-to="bottom-right"; }
+
+window-rule { match title=".*is sharing (a window|your screen).*"; open-floating true; }
+
+window-rule { match title=".*Adjustments and Effects.*"; open-floating true; }
+window-rule { match title=".*Select one or more files to open.*"; open-floating true; }
+
+window-rule { match title="^Open File.*$"; open-floating true; }
+window-rule { match title="^Select a File.*$"; open-floating true; }
+window-rule { match title="^Open Folder.*$"; open-floating true; }
+window-rule { match title="^Save As.*$"; open-floating true; }
+window-rule { match title="^Library.*$"; open-floating true; }
+window-rule { match title="^File Upload.*$"; open-floating true; }
+window-rule { match title=".*wants to save$"; open-floating true; }
+window-rule { match title=".*wants to open$"; open-floating true; }
