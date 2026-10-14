@@ -6,26 +6,15 @@ local del = vim.keymap.del
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("i", "jk", "<ESC>", { desc = "Exit insert mode" })
 
+map("n", "<A-j>", "5j", { desc = "Move down" })
+map("n", "<A-k>", "5k", { desc = "Move up" })
+
+map("n", "<A-k>", "<cmd>move .-2<CR>==", { desc = "Move line up" })
+map("n", "<A-j>", "<cmd>move .+1<CR>==", { desc = "Move line down" })
+
 -- Goated keymap
 map("n", "<leader>ch", "<cmd>edit ~/.local/share/nvim/lazy/NvChad/lua/nvchad/mappings.lua<CR>",
 { desc = "Open NvChad default mappings", })
-
--- Terminal
--- Leader + h: Toggle horizontal terminal
-map({ "n", "t" }, "<leader>h", function()
-  require("nvchad.term").toggle { pos = "float", id = "floatTerm" }
-end, { desc = "terminal toggle floating term" })
-
--- Alt + h: Open a new horizontal terminal
-map("n", "<A-h>", function()
-  require("nvchad.term").new { pos = "sp" }
-end, { desc = "terminal new horizontal term" })
-
--- Ctrl + n: Close the current terminal window from terminal mode
-map("t", "<C-n>", "<C-\\><C-N><cmd>close!<CR>", { desc = "Terminal close window", })
-
--- Keep the standard terminal escape mapping
-map("t", "<C-x>", "<C-\\><C-N>", { desc = "Terminal escape terminal mode" })
 
 -- NvimTree
 -- Leader + e: Toggle NvimTree

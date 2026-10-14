@@ -1,12 +1,10 @@
-output "eDP-1" { mode "1920x1200@165"; scale 1.5; transform "normal"; }
-
 prefer-no-csd
-
-xwayland-satellite { path "xwayland-satellite"; }
-
 hotkey-overlay { skip-at-startup; hide-not-bound; }
-
+blur { passes 10; offset 3.0; noise 0.02; saturation 1.5; }
 cursor { xcursor-theme "Bibata-Modern-Classic"; xcursor-size 24; }
+output "eDP-1" { mode "1920x1200@165"; scale 1.5; transform "normal"; }
+layer-rule { match namespace="^awww-daemonbackdrop$"; place-within-backdrop true; }
+
 
 input {
     keyboard { xkb { layout "us"; }; numlock; repeat-delay 250; repeat-rate 35; }
@@ -14,6 +12,7 @@ input {
     mouse { accel-profile "adaptive"; accel-speed 0.0; }
     workspace-auto-back-and-forth
 }
+
 
 layout {
     gaps 12
@@ -26,9 +25,6 @@ layout {
     tab-indicator { hide-when-single-tab; }
 }
 
-layer-rule { match namespace="^awww-daemonbackdrop$"; place-within-backdrop true; }
-
-blur { passes 10; offset 3.0; noise 0.02; saturation 1.5; }
 
 animations {
     window-open { spring damping-ratio=0.82 stiffness=500 epsilon=0.0001; }
