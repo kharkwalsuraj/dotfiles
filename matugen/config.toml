@@ -126,8 +126,7 @@ if [ "$enable_qt_theming" != true ]; then
     exit 0
 fi
 
-cp ~/.local/share/color-schemes/Matugen.colors 
-    ~/.local/share/color-schemes/Matugen2.colors
+cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
 
 plasma-apply-desktoptheme darkly
 plasma-apply-colorscheme Matugen2
