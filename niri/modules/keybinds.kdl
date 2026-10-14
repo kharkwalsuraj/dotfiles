@@ -4,32 +4,26 @@ binds {
     Mod+E repeat=false { spawn "nautilus"; }
     Mod+B repeat=false { spawn "brave"; }
 
-    // Window management
     Mod+F repeat=false { maximize-column; }
     Mod+Shift+F repeat=false { fullscreen-window; }
     Mod+M repeat=false { maximize-window-to-edges; }
     Mod+Q repeat=false { close-window; }
 
-    // Screenshots
     Print repeat=false { screenshot; }
     Ctrl+Print repeat=false { screenshot-window; }
     Ctrl+Shift+Print repeat=false { screenshot-screen; }
 
-    // Session
     Mod+Shift+E repeat=false { quit; }
     Ctrl+Alt+Delete repeat=false { quit; }
     Mod+Shift+P repeat=false { power-off-monitors; }
 
-    // Overview
     Mod+O repeat=false { toggle-overview; }
 
-    // Focus navigation
     Mod+H { focus-column-left; }
     Mod+J { focus-window-down; }
     Mod+K { focus-window-up; }
     Mod+L { focus-column-right; }
 
-    // Workspaces
     Mod+1 repeat=false { focus-workspace 1; }
     Mod+2 repeat=false { focus-workspace 2; }
     Mod+3 repeat=false { focus-workspace 3; }
@@ -40,23 +34,19 @@ binds {
     Mod+8 repeat=false { focus-workspace 8; }
     Mod+9 repeat=false { focus-workspace 9; }
 
-    // Move windows between columns
     Mod+BracketLeft repeat=false { consume-or-expel-window-left; }
     Mod+BracketRight repeat=false { consume-or-expel-window-right; }
 
-    // Audio
     XF86AudioRaiseVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1+ -l 1.0"; }
     XF86AudioLowerVolume allow-when-locked=true { spawn-sh "wpctl set-volume @DEFAULT_AUDIO_SINK@ 0.1-"; }
     XF86AudioMute allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"; }
     XF86AudioMicMute allow-when-locked=true { spawn-sh "wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle"; }
 
-    // Media playback
     XF86AudioPlay allow-when-locked=true repeat=false { spawn-sh "playerctl play-pause"; }
     XF86AudioStop allow-when-locked=true repeat=false { spawn-sh "playerctl stop"; }
     XF86AudioPrev allow-when-locked=true repeat=false { spawn-sh "playerctl previous"; }
     XF86AudioNext allow-when-locked=true repeat=false { spawn-sh "playerctl next"; }
 
-    // Display brightness
     XF86MonBrightnessUp allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "+10%"; }
     XF86MonBrightnessDown allow-when-locked=true { spawn "brightnessctl" "--class=backlight" "set" "10%-"; }
 }
