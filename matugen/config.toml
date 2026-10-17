@@ -8,53 +8,30 @@ set = true
 command = '''
 image="{{ image }}"
 cache_dir=~/.cache/backdrop-wallpapers/
-settings=~/.config/matugen/settings.conf
-
-source "$settings"
 mkdir -p "$cache_dir"
 
-# Manage backdrop daemon
-if [ "$enable_backdrop_wallpaper" = true ]; then
-    if ! pgrep -f "^awww-daemon --namespace backdrop$" >/dev/null; then
-        awww-daemon --namespace backdrop >/dev/null 2>&1 &
-        sleep 0.2
-    fi
+name="$(basename "$image")"
+cache="$cache_dir/${name%.*}.webp"
 
-    name="$(basename "$image")"
-    cache="$cache_dir/${name%.*}.webp"
-
-    if [ ! -f "$cache" ]; then
-        magick "$image" -auto-orient -resize "$backdrop_resize_geometry" -strip \
-	-blur "0x${backdrop_blur_radius}" -quality "$backdrop_quality"  "$cache"
-    fi
-
-    awww img --transition-type fade --transition-duration 0.5 -n backdrop "$cache" &
-else
-    pkill -f "^awww-daemon --namespace backdrop$" 2>/dev/null || true
+if [ ! -f "$cache" ]; then
+    magick "$image" -auto-orient -resize "$backdrop_resize_geometry" -strip \
+-blur "0x${backdrop_blur_radius}" -quality "$backdrop_quality"  "$cache"
 fi
 
-# Manage main wallpaper daemon
-if ! pgrep -f "^awww-daemon$" >/dev/null; then
-    awww-daemon >/dev/null 2>&1 &
-    sleep 0.2
-fi
-
+awww img --transition-type fade --transition-duration 0.5 -n backdrop "$cache" &
 awww img --transition-type fade --transition-duration 0.5 "$image" &
 '''
 
 
-[templates.m3colors]
-input_path = '~/.config/matugen/templates/m3colors/m3colors.json'
-output_path = '~/.local/state/matugen/m3colors.json'
+[templates.ansi]
+input_path = '~/.config/matugen/templates/ansi/colors.json'
+output_path = '~/.local/state/matugen/colors.json'
 post_hook = '''
-settings=~/.config/matugen/settings.conf
-source "$settings"
+python3 ~/.config/matugen/templates/ansi/ansi.py --blend_bg_fg --mode "{{ mode }}" --scheme "{{ scheme }}"
 
-python3 ~/.config/matugen/extend/ansi.py --path "{{ image }}" --blend_bg_fg --mode "{{ mode }}" --scheme "{{ scheme }}"
-
-python3 ~/.config/matugen/extend/scripts/nvim.py --mode "{{ mode }}" &
-python3 ~/.config/matugen/extend/scripts/kitty.py &
-python3 ~/.config/matugen/extend/scripts/fzf.py &
+python3 ~/.config/matugen/templates/ansi/scripts/nvim.py --mode "{{ mode }}" &
+python3 ~/.config/matugen/templates/ansi/scripts/kitty.py &
+python3 ~/.config/matugen/templates/ansi/scripts/fzf.py &
 '''
 
 
@@ -68,20 +45,14 @@ post_hook = 'niri msg action load-config-file'
 input_path = '~/.config/matugen/templates/gtk-3.0/gtk.css'
 output_path = '~/.config/gtk-3.0/gtk.css'
 post_hook = '''
-settings=~/.config/matugen/settings.conf
-source "$settings"
 gsettings set org.gnome.desktop.interface gtk-theme ""
 
-if [ "$enable_gtk_theming" != true ]; then
-    exit 0
-fi
-
 if [ "{{ mode }}" = "light" ]; then
-    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme_light"
-    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon_theme_light"
+    gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3"
+    gsettings set org.gnome.desktop.interface icon-theme "Colloid"
 else
-    gsettings set org.gnome.desktop.interface gtk-theme "$gtk_theme_dark"
-    gsettings set org.gnome.desktop.interface icon-theme "$gtk_icon_theme_dark"
+    gsettings set org.gnome.desktop.interface gtk-theme "adw-gtk3-dark"
+    gsettings set org.gnome.desktop.interface icon-theme "Colloid-Dark"
 fi
 '''
 
@@ -90,54 +61,34 @@ fi
 input_path = '~/.config/matugen/templates/gtk-4.0/gtk.css'
 output_path = '~/.config/gtk-4.0/gtk.css'
 post_hook = '''
-settings=~/.config/matugen/settings.conf
-source "$settings"
-
-if [ "$enable_gtk_theming" != true ]; then
-    exit 0
-fi
-
-current="$(gsettings get org.gnome.desktop.interface color-scheme | tr -d "'")"
-
-if [ "{{ mode }}" = "dark" ]; then
-    target="prefer-dark"
-    opposite="prefer-light"
+if [[ "{{ mode }}" == "light" ]]; then
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark
+    gsettings set org.gnome.desktop.interface color-scheme prefer-light
 else
-    target="prefer-light"
-    opposite="prefer-dark"
+    gsettings set org.gnome.desktop.interface color-scheme prefer-light
+    gsettings set org.gnome.desktop.interface color-scheme prefer-dark
 fi
-
-if [ "$current" = "$target" ]; then
-    gsettings set org.gnome.desktop.interface color-scheme "$opposite"
-fi
-
-gsettings set org.gnome.desktop.interface color-scheme "$target"
 '''
 
 
-[templates.qt]
-input_path = '~/.config/matugen/templates/qt/Matugen.colors'
-output_path = '~/.local/share/color-schemes/Matugen.colors'
-post_hook = '''
-settings=~/.config/matugen/settings.conf
-source "$settings"
-
-if [ "$enable_qt_theming" != true ]; then
-    exit 0
-fi
-
-cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
-
-plasma-apply-desktoptheme darkly
-plasma-apply-colorscheme Matugen2
-plasma-apply-colorscheme Matugen
-
-if [ "{{ mode }}" = "light" ]; then
-    kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_light"
-else
-    kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_dark"
-fi
-
-kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
-kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
-'''
+# If you qt styles, just uncomment these line
+# [templates.qt]
+# input_path = '~/.config/matugen/templates/qt/Matugen.colors'
+# output_path = '~/.local/share/color-schemes/Matugen.colors'
+# post_hook = '''
+#
+# cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
+#
+# plasma-apply-desktoptheme darkly
+# plasma-apply-colorscheme Matugen2
+# plasma-apply-colorscheme Matugen
+#
+# if [ "{{ mode }}" = "light" ]; then
+#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_light"
+# else
+#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_dark"
+# fi
+#
+# kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
+# kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
+# '''

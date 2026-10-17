@@ -6,7 +6,6 @@ import math
 import os
 from pathlib import Path
 
-# from PIL import Image
 from materialyoucolor.hct import Hct
 from materialyoucolor.utils.color_utils import argb_from_rgb, rgba_from_argb
 from materialyoucolor.utils.math_utils import sanitize_degrees_double, difference_degrees, rotation_direction
@@ -16,7 +15,7 @@ HOME = Path.home()
 XDG_CONFIG_HOME = Path(os.environ.get("XDG_CONFIG_HOME", HOME / ".config")).expanduser()
 XDG_STATE_HOME = Path(os.environ.get("XDG_STATE_HOME", HOME / ".local/state")).expanduser()
 
-MATERIAL_COLORS_PATH = XDG_STATE_HOME / "matugen/m3colors.json"
+MATERIAL_COLORS_PATH = XDG_STATE_HOME / "matugen/colors.json"
 ANSI_OUTPUT_PATH = XDG_STATE_HOME / "matugen/ansi.json"
 ANSI_OUTPUT_PATH.parent.mkdir(parents=True, exist_ok=True)
 
@@ -36,9 +35,7 @@ parser = argparse.ArgumentParser(
     description="Generate ANSI terminal colors from Matugen Material colors.",
     formatter_class=argparse.ArgumentDefaultsHelpFormatter,
 )
-parser.add_argument("--path", type=Path, required=True, help="Wallpaper image used to determine colorfulness.")
 parser.add_argument("--mode", choices=["dark", "light"], default="dark", help="Terminal color mode.")
-# parser.add_argument("--monochrome_threshold", type=float, default=6.0, help="Colorfulness threshold below which the monochrome palette is used.")
 parser.add_argument("--harmony", type=float, default=0.6, help="Amount of hue shift toward the source color (0-1).")
 parser.add_argument("--harmonize_threshold", type=float, default=100.0, help="Maximum hue rotation in degrees (0-180).")
 parser.add_argument("--term_fg_boost", type=float, default=0.35, help="Foreground tone adjustment relative to the background.")
@@ -59,33 +56,6 @@ def hex_to_argb(hex_color: str) -> int:
     return argb_from_rgb(int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16))
 
 
-# def calc_colorfulness(image: Image.Image) -> float:
-#     if image.format == "GIF":
-#         image.seek(1)
-#     rgb_image = image.convert("RGB")
-#     rg_sum = yb_sum = rg_sq_sum = yb_sq_sum = 0.0
-#     count = 0
-#
-#     for red, green, blue in rgb_image.get_flattened_data():
-#         red, green, blue = float(red), float(green), float(blue)
-#         rg, yb = abs(red - green), abs(0.5 * (red + green) - blue)
-#         rg_sum += rg
-#         yb_sum += yb
-#         rg_sq_sum += rg * rg
-#         yb_sq_sum += yb * yb
-#         count += 1
-#
-#     if count == 0:
-#         return 0.0
-#
-#     mean_rg, mean_yb = rg_sum / count, yb_sum / count
-#     variance_rg = max((rg_sq_sum / count) - (mean_rg * mean_rg), 0.0)
-#     variance_yb = max((yb_sq_sum / count) - (mean_yb * mean_yb), 0.0)
-#     std_rg, std_yb = math.sqrt(variance_rg), math.sqrt(variance_yb)
-#
-#     return math.sqrt(std_rg**2 + std_yb**2) + 0.3 * math.sqrt(mean_rg**2 + mean_yb**2)
-
-
 def harmonize(design_color: int, source_color: int, threshold: float = 35.0, harmony: float = 0.5) -> int:
     design_hct = Hct.from_int(design_color)
     source_hct = Hct.from_int(source_color)
@@ -99,19 +69,6 @@ def boost_chroma_tone(argb_color: int, chroma_multiplier: float = 1.0, tone_mult
     color_hct = Hct.from_int(argb_color)
     return Hct.from_hct(color_hct.hue, color_hct.chroma * chroma_multiplier, color_hct.tone * tone_multiplier).to_int()
 
-
-# colorfulness = args.monochrome_threshold + 1
-# if args.scheme == "scheme-smart":
-#
-#     image_path = args.path.expanduser()
-#     if not image_path.is_file():
-#         raise FileNotFoundError(f"Cannot locate image: {image_path}")
-#     with Image.open(image_path) as image:
-#         image.thumbnail((128, 128), Image.Resampling.LANCZOS)
-#         colorfulness = calc_colorfulness(image)
-#
-#
-#     print(f"Colorfulness: {colorfulness:.4f}")
 
 if args.scheme == "SchemeMonochrome":
     ansi_colors = MONOCHROME_PALETTES[args.mode]

@@ -1,17 +1,12 @@
-// Main services
-spawn-at-startup "systemctl" "--user" "import-environment" "QT_QPA_PLATFORMTHEME" "QT_STYLE_OVERRIDE" "XDG_CURRENT_DESKTOP" "XDG_SESSION_DESKTOP"
-spawn-at-startup "systemctl" "--user" "restart" "xdg-desktop-portal"
-spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,ssh"
+spawn-at-startup "gnome-keyring-daemon" "--start" "--components=secrets,ssh";
 
-// Idle / authentication
-spawn-at-startup "/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit"
-spawn-sh-at-startup "swayidle -w timeout 270 'brightnessctl set 10%-' resume 'brightnessctl set 10%+' timeout 300 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' timeout 600 'systemctl suspend'"
-spawn-at-startup "wlsunset" "-S" "07:00" "-s" "19:00" "-d" "1800"
+spawn-at-startup "/usr/lib/policykit-1-pantheon/io.elementary.desktop.agent-polkit";
 
-// Wallpapers Daemon
-spawn-at-startup "awww-daemon"
-spawn-sh-at-startup "settings=~/.config/quickshell/zoya/matugen/configs/matugen.conf; [ -f \"$settings\" ] && . \"$settings\" && [ \"$backdropWallpaper\" = true ] && awww -n backdrop restore"
+spawn-sh-at-startup "swayidle -w timeout 270 'brightnessctl set 10%-' resume 'brightnessctl set 10%+' timeout 300 'niri msg action power-off-monitors' resume 'niri msg action power-on-monitors' timeout 600 'systemctl suspend'";
 
-// Restore Wallpapers
-spawn-sh-at-startup "awww restore"
-spawn-sh-at-startup "settings=~/.config/quickshell/zoya/matugen/configs/matugen.conf; [ -f \"$settings\" ] && . \"$settings\" && [ \"$backdropWallpaper\" = true ] && awww-daemon --namespace backdrop"
+spawn-at-startup "wlsunset" "-S" "07:00" "-s" "19:00" "-d" "1800";
+
+spawn-at-startup "awww-daemon";
+spawn-sh-at-startup "awww-daemon --namespace backdrop";
+spawn-sh-at-startup "awww restore";
+spawn-sh-at-startup "awww -n backdrop restore";
