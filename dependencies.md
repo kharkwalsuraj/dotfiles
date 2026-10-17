@@ -29,6 +29,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - `adw-gtk-theme` — GTK application theme.
 - [Colloid icon theme](https://github.com/vinceliuice/Colloid-icon-theme) — Application icons.
 - `bibata-cursor-theme-bin` — Mouse cursor theme.
+- `darkly-bin` — Darkly Qt application style.
 
 
 ## Fonts
@@ -73,6 +74,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 
 
 ## Audio, Networking, and Bluetooth
+- `pavucontrol-qt` — Qt-based PulseAudio volume control GUI.
 - `pipewire` — Audio and multimedia server.
 - `pipewire-pulse` — PulseAudio compatibility layer for PipeWire.
 - `wireplumber` — PipeWire session and device manager.
