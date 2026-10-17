@@ -7,15 +7,14 @@ prefer = "saturation"
 set = true
 command = '''
 image="{{ image }}"
-cache_dir=~/.cache/backdrop-wallpapers/
+cache_dir="$HOME/.cache/niri/backdrop-wallpapers"
 mkdir -p "$cache_dir"
 
 name="$(basename "$image")"
 cache="$cache_dir/${name%.*}.webp"
 
 if [ ! -f "$cache" ]; then
-    magick "$image" -auto-orient -resize "$backdrop_resize_geometry" -strip \
--blur "0x${backdrop_blur_radius}" -quality "$backdrop_quality"  "$cache"
+    magick "$image" -resize "1280x1280>" -strip -blur "0x16" -quality 80 "$cache"
 fi
 
 awww img --transition-type fade --transition-duration 0.5 -n backdrop "$cache" &

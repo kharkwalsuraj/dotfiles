@@ -1,3 +1,4 @@
+layer-rule { match namespace="^awww-daemonbackdrop$"; place-within-backdrop true; };
 window-rule { geometry-corner-radius 20; clip-to-geometry true; };
 
 window-rule {

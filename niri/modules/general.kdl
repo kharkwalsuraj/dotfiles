@@ -3,7 +3,6 @@ hotkey-overlay { skip-at-startup; hide-not-bound; };
 blur { passes 10; offset 3.0; noise 0.02; saturation 1.5; };
 cursor { xcursor-theme "Bibata-Modern-Classic"; xcursor-size 24; };
 output "eDP-1" { mode "1920x1200@165"; scale 1.5; transform "normal"; };
-layer-rule { match namespace="^backdrop$"; place-within-backdrop true; };
 recent-windows { highlight { corner-radius 20; }; };
 
 input {
