@@ -83,9 +83,9 @@ fi
 # plasma-apply-colorscheme Matugen
 #
 # if [ "{{ mode }}" = "light" ]; then
-#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "Colloid"
+#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_light"
 # else
-#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "Colloid-Dark"
+#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_dark"
 # fi
 #
 # kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
