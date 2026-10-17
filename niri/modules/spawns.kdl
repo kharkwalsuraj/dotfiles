@@ -7,6 +7,6 @@ spawn-sh-at-startup "swayidle -w timeout 270 'brightnessctl set 10%-' resume 'br
 spawn-at-startup "wlsunset" "-S" "07:00" "-s" "19:00" "-d" "1800";
 
 spawn-at-startup "awww-daemon";
-spawn-sh-at-startup "awww-daemon --namespace backdrop";
 spawn-sh-at-startup "awww restore";
+spawn-sh-at-startup "awww-daemon --namespace backdrop";
 spawn-sh-at-startup "awww -n backdrop restore";

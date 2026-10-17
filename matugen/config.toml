@@ -70,24 +70,23 @@ fi
 '''
 
 
-# If you qt styles, just uncomment these line
-# [templates.qt]
-# input_path = '~/.config/matugen/templates/qt/Matugen.colors'
-# output_path = '~/.local/share/color-schemes/Matugen.colors'
-# post_hook = '''
-#
-# cp ~/.local/share/color-schemes/Matugen.colors ~/.local/share/color-schemes/Matugen2.colors
-#
-# plasma-apply-desktoptheme darkly
-# plasma-apply-colorscheme Matugen2
-# plasma-apply-colorscheme Matugen
-#
-# if [ "{{ mode }}" = "light" ]; then
-#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_light"
-# else
-#     kwriteconfig6 --file kdeglobals --group Icons --key Theme "$qt_icon_theme_dark"
-# fi
-#
-# kwriteconfig6 --file kdeglobals --group General --key TerminalApplication kitty
-# kwriteconfig6 --file kdeglobals --group General --key TerminalService kitty.desktop
-# '''
+[templates.qt]
+input_path = '~/.config/matugen/templates/qt/Matugen.colors'
+output_path = '~/.local/share/color-schemes/Matugen.colors'
+post_hook = '''
+config=~/.config/qt6ct/qt6ct.conf
+scheme=~/.local/share/color-schemes/Matugen.colors
+
+if [ "{{ mode }}" = "light" ]; then
+    icon_theme=Colloid
+else
+    icon_theme=Colloid-Dark
+fi
+
+sed -i \
+    -e "/^\\[Appearance\\]/,/^\\[/ s|^color_scheme_path=.*|color_scheme_path=$scheme|" \
+    -e "/^\\[Appearance\\]/,/^\\[/ s|^custom_palette=.*|custom_palette=true|" \
+    -e "/^\\[Appearance\\]/,/^\\[/ s|^style=.*|style=Darkly|" \
+    -e "/^\\[Appearance\\]/,/^\\[/ s|^icon_theme=.*|icon_theme=$icon_theme|" \
+    "$config"
+'''
