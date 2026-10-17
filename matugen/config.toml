@@ -74,19 +74,18 @@ fi
 input_path = '~/.config/matugen/templates/qt/Matugen.colors'
 output_path = '~/.local/share/color-schemes/Matugen.colors'
 post_hook = '''
-config=~/.config/qt6ct/qt6ct.conf
-scheme=~/.local/share/color-schemes/Matugen.colors
+config="$HOME/.config/qt6ct/qt6ct.conf"
+scheme="$HOME/.local/share/color-schemes/Matugen.colors"
 
 if [ "{{ mode }}" = "light" ]; then
-    icon_theme=Colloid
+    kwriteconfig6 --file qt6ct/qt6ct.conf --group Appearance --key icon_theme Colloid
 else
-    icon_theme=Colloid-Dark
+    kwriteconfig6 --file qt6ct/qt6ct.conf --group Appearance --key icon_theme Colloid-Dark
 fi
 
-sed -i \
-    -e "/^\\[Appearance\\]/,/^\\[/ s|^color_scheme_path=.*|color_scheme_path=$scheme|" \
-    -e "/^\\[Appearance\\]/,/^\\[/ s|^custom_palette=.*|custom_palette=true|" \
-    -e "/^\\[Appearance\\]/,/^\\[/ s|^style=.*|style=Darkly|" \
-    -e "/^\\[Appearance\\]/,/^\\[/ s|^icon_theme=.*|icon_theme=$icon_theme|" \
-    "$config"
+mkdir -p "$(dirname "$config")" "$(dirname "$scheme")"
+
+kwriteconfig6 --file qt6ct/qt6ct.conf --group Appearance --key color_scheme_path ~/.local/share/color-schemes/Matugen.colors
+kwriteconfig6 --file qt6ct/qt6ct.conf --group Appearance --key custom_palette true
+kwriteconfig6 --file qt6ct/qt6ct.conf --group Appearance --key style Darkly
 '''
