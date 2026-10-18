@@ -30,6 +30,7 @@ Packages, themes, fonts, and services used in my **Arch Linux Btw**. Use this li
 - [Colloid icon theme](https://github.com/vinceliuice/Colloid-icon-theme) — Application icons.
 - `bibata-cursor-theme-bin` — Mouse cursor theme.
 - `darkly-bin` — Darkly Qt application style.
+- `qt6ct` — A configuration tool for Qt applications.
 
 
 ## Fonts
