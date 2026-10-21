@@ -35,6 +35,7 @@ Text {
     font.family: root.weightName
     font.pixelSize: root.size
 
+
     color: root.iconColor
 
     horizontalAlignment: Text.AlignHCenter

@@ -102,6 +102,7 @@ Item {
         onTriggered: root.refresh()
     }
 
+     
     PhosphorIcon {
         id: networkIcon
 

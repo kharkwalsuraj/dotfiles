@@ -7,7 +7,7 @@ Rectangle {
     id: root
 
     implicitWidth: controls.implicitWidth + Appearance.spacing.md
-    implicitHeight: controls.implicitHeight
+    implicitHeight: Appearance.iconSize.lg
 
     radius: height / 2
     color: "transparent"
@@ -18,9 +18,16 @@ Rectangle {
         anchors.centerIn: parent
         spacing: 4
 
-        NetworkIndicator {}
-        BluetoothIndicator {}
+        NetworkIndicator {
+            Layout.alignment: Qt.AlignVCenter
+        }
 
+        BluetoothIndicator {
+            Layout.alignment: Qt.AlignVCenter
+        }
+
+        BatteryIndicator {
+            Layout.alignment: Qt.AlignVCenter
+        }
     }
-
 }

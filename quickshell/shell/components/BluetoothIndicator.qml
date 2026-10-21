@@ -6,16 +6,10 @@ import qs.shell.conf
 Item {
     id: root
 
-    enum State {
-        EnabledConnected,
-        EnabledDisconnected,
-        Disabled,
-        Unavailable
-    }
+    enum State { EnabledConnected, EnabledDisconnected, Disabled, Unavailable }
 
     property int iconSize: Appearance.iconSize.sm
     property color iconColor: Colors.md3.on_surface
-
     property int state: BluetoothIndicator.State.Unavailable
 
     implicitWidth: bluetoothIcon.implicitWidth
@@ -86,7 +80,7 @@ Item {
 
         size: root.iconSize
         iconColor: root.iconColor
-        weight: PhosphorIcon.Weight.Fill
+        weight: PhosphorIcon.Weight.Bold
 
         glyph: {
             switch (root.state) {

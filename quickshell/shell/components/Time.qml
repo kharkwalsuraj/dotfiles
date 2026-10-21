@@ -15,6 +15,7 @@ Column {
         font.family: "Google Sans Flex"
         font.pixelSize: Appearance.fontSize.sm
         font.weight: Font.Medium
+        font.features: ({ "tnum": 1 })
         anchors.horizontalCenter: parent.horizontalCenter
     }
 
@@ -22,6 +23,7 @@ Column {
         text: Qt.formatDateTime(root.currentDate, "ddd, dd/MM")
         color: Colors.md3.on_surface_variant
         font.family: "Google Sans Flex"
+        font.features: ({ "tnum": 1 })
         font.pixelSize: Appearance.fontSize.xs
         anchors.horizontalCenter: parent.horizontalCenter
     }

@@ -11,10 +11,7 @@ Singleton {
     property real minScale: 0.85
     property real maxScale: 1.25
 
-    readonly property real scale: Math.max(
-        minScale,
-        Math.min(maxScale, monitorWidth / referenceWidth)
-    )
+    readonly property real scale: Math.max(minScale, Math.min(maxScale, monitorWidth / referenceWidth))
 
     function px(value: real): int {
         return Math.round(value * scale)
@@ -22,7 +19,7 @@ Singleton {
 
     property QtObject bar: QtObject {
         property int height: root.px(40)
-        property int margins: root.px(8)
+        property int margins: root.px(10)
         property int spacing: root.px(8)
         property int radius: root.px(12)
     }
