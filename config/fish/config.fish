@@ -9,9 +9,6 @@ set -q XDG_CONFIG_HOME  ||  set -gx XDG_CONFIG_HOME  "$HOME/.config"
 set -q XDG_DATA_HOME    ||  set -gx XDG_DATA_HOME    "$HOME/.local/share"
 set -q XDG_STATE_HOME   ||  set -gx XDG_STATE_HOME   "$HOME/.local/state"
 
-set -gx THEOSHELL_TRASH_DIR "$XDG_DATA_HOME/theoshell/trash"
-set -gx THEOSHELL_CDF_DIR "$XDG_DATA_HOME/theoshell/cd-fav.txt"
-
 # Starship reads its config from the repo-managed directory (setup.sh links config/starship into ~/.config)
 set -gx STARSHIP_CONFIG "$XDG_CONFIG_HOME/starship/starship.toml"
 
@@ -27,6 +24,8 @@ if status is-interactive
     if type -q fd
         set -gx FZF_DEFAULT_COMMAND 'fd --hidden --strip-cwd-prefix --exclude ".git"'
     end
+    # Colors live in fzf/colors, overwritten by hyprland-shell's apply-fzf.py (needs fzf 0.52+)
+    set -gx FZF_DEFAULT_OPTS_FILE ~/.config/fzf/colors
     set -gx FZF_DEFAULT_OPTS '--layout=reverse --cycle --height=50% --margin=5% --border=double'
 
     if type -q fzf

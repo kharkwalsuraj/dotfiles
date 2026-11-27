@@ -13,6 +13,23 @@ end
 ---@module "fzf-lua"
 ---@type fzf-lua.Config
 local opts = {
+    -- Selection, prompt, pointer etc. follow the Neovim highlight groups (editor/theme), so they update with the theme
+    fzf_colors = {
+        ["fg"] = { "fg", "FzfLuaNormal" },
+        ["bg"] = { "bg", "FzfLuaNormal" },
+        ["hl"] = { "fg", "Function" },
+        ["fg+"] = { "fg", "Normal" },
+        ["bg+"] = { "bg", "Visual" },
+        ["hl+"] = { "fg", "Function" },
+        ["info"] = { "fg", "Special" },
+        ["prompt"] = { "fg", "Function" },
+        ["pointer"] = { "fg", "Function" },
+        ["marker"] = { "fg", "String" },
+        ["spinner"] = { "fg", "Special" },
+        ["header"] = { "fg", "Comment" },
+        ["border"] = { "fg", "FzfLuaBorder" },
+        ["gutter"] = { "bg", "FzfLuaNormal" },
+    },
     keymap = { builtin = { ["<C-f>"] = "preview-page-down", ["<C-b>"] = "preview-page-up" } },
     grep = {
         rg_opts = "--column --line-number --no-heading --color=always --smart-case --max-columns=4096 --hidden --glob=!.git -e",

@@ -10,3 +10,7 @@ bind ctrl-left backward-word  # One word back (default)
 bind ctrl-right forward-word  # One word forward (default)
 bind home beginning-of-line   # Start of line (default)
 bind end end-of-line          # End of line (default)
+
+# fzf helpers (see functions/fcd.fish and functions/fe.fish)
+bind alt-j 'fcd; commandline -f repaint' # Jump to a directory
+bind alt-i 'fe; commandline -f repaint'  # Edit a file

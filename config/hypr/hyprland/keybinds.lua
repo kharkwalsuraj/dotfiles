@@ -29,7 +29,7 @@ bind("SUPER + mouse:272", hl.dsp.window.drag(), mouse)
 bind("SUPER + mouse:273", hl.dsp.window.resize(), mouse)
 
 -- Exit Hyprland
-bind("SUPER + SHIFT + E", run("hyprctl dispatch exit"))
+bind("SUPER + SHIFT + E", hl.dsp.exit())
 
 -- Focus: the layout's own message scrolls the strip without leaving
 -- fullscreen or maximized state

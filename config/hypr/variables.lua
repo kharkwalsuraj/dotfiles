@@ -44,7 +44,7 @@ return {
     -- Misc
     backgroundColor       = "rgb(" .. colors.surface .. ")",
     font                  = "Google Sans Flex",
-    cursorTheme           = "Bibata-Modern-Ice",
+    cursorTheme           = "Bibata-Modern-Classic",
     cursorSize            = 24,
     volumeStep            = 5,
     brightnessStep        = 5,
